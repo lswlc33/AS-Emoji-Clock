@@ -12,7 +12,7 @@
     <FrameLayout
         android:id="@+id/background"
         android:layout_width="match_parent"
-        android:background="#2196F3"
+        android:background="#000000"
         android:layout_height="match_parent"
         tools:ignore="UselessParent">
 
@@ -34,8 +34,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            app:srcCompat="@drawable/cog6tooth"
-            android:contentDescription="TODO" />
+            android:contentDescription="TODO"
+            android:padding="20dp"
+            app:srcCompat="@drawable/cog6tooth" />
 
     </FrameLayout>
 
