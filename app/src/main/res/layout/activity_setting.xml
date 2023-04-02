@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    android:text="表情文字大小(没做好)"
+                    android:text="表情文字大小"
                     android:textStyle="bold" />
 
                 <SeekBar
