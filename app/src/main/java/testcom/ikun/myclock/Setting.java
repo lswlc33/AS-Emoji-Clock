@@ -14,6 +14,10 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Setting extends AppCompatActivity {
 
@@ -25,6 +29,7 @@ public class Setting extends AppCompatActivity {
 
     public static String customemojitext = "";
 
+    public static String custom_bg_color = "#000000";
     public void init_setting(boolean a,boolean b, boolean c, boolean d){
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switch1 = (Switch) findViewById(R.id.switch1);
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switch2 = (Switch) findViewById(R.id.switch2);
@@ -61,7 +66,9 @@ public class Setting extends AppCompatActivity {
         switch2.setChecked(c);
         switch3.setChecked(b);
         switch4.setChecked(d);
+        editText1.setText(custom_bg_color);
         editText2.setText(customemojitext);
+
     }
 
 
@@ -79,6 +86,32 @@ public class Setting extends AppCompatActivity {
         EditText editText1 = (EditText) findViewById(R.id.editTextTextPersonName);
         EditText editText2 = (EditText) findViewById(R.id.editTextTextPersonName2);
         SeekBar seekBar1 = (SeekBar) findViewById(R.id.seekBar);
+
+        editText1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(iscustombgcolor) {
+                    Pattern pattern = Pattern.compile("^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{8})$");
+                    Matcher matcher = pattern.matcher(editText1.getText());
+                    if (matcher.matches()) {
+                        switch2.setText("自定义背景颜色     😋️️输入的颜色符合规范！");
+                        custom_bg_color = String.valueOf(editText1.getText());
+                    } else {
+                        switch2.setText("自定义背景颜色     ⚠️输入的颜色不符合规范！");
+                    }
+                }else{switch2.setText("自定义背景颜色");}
+            }
+        });
 
         editText2.addTextChangedListener(new TextWatcher() {
             @Override

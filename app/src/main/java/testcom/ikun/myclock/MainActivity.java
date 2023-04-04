@@ -14,14 +14,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
     static ArrayList<String> bg_colors = new ArrayList<String>();
     static ArrayList<String> emoji_text = new ArrayList<String>();
     static {
+        // 预设颜色和表情
         bg_colors.add("BLACK");
         bg_colors.add("BLUE");
         bg_colors.add("CYAN");
@@ -42,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void init_main() {
-        //
+        // 设置背景颜色和文字
         FrameLayout background = (FrameLayout) findViewById(R.id.background);
         TextView text = (TextView) findViewById(R.id.textView);
 
@@ -54,13 +58,18 @@ public class MainActivity extends AppCompatActivity {
 
         if (Setting.isallowbgcolorchange) {
             background.setBackgroundColor(Color.parseColor(bg_colors.get(index)));
-        } ;
+        }else {
+            if(Setting.iscustombgcolor){
+                background.setBackgroundColor(Color.parseColor(Setting.custom_bg_color));
+            }else {
+            }
+        }
+
         if (Setting.isallowemojitextchange) {
+            text.setText(emoji_text.get(index2));
         }else{
             if(Setting.iscustomemojitext) {
                 text.setText(Setting.customemojitext);
-            }else {
-                text.setText(emoji_text.get(index2));
             }
         }
     }
