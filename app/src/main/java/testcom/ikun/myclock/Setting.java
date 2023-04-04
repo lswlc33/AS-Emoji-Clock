@@ -105,7 +105,7 @@ public class Setting extends AppCompatActivity {
                     Matcher matcher = pattern.matcher(editText1.getText());
                     if (matcher.matches()) {
                         switch2.setText("自定义背景颜色     😋️️输入的颜色符合规范！");
-                        //
+
                         custom_bg_color = String.valueOf(editText1.getText());
                     } else {
                         switch2.setText("自定义背景颜色     ⚠️输入的颜色不符合规范！");
