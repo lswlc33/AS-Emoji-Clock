@@ -19,7 +19,54 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    
+    static ArrayList<String> bg_colors = new ArrayList<String>();
+    static ArrayList<String> emoji_text = new ArrayList<String>();
+    static {
+        bg_colors.add("BLACK");
+        bg_colors.add("BLUE");
+        bg_colors.add("CYAN");
+        bg_colors.add("GRAY");
+        bg_colors.add("GREEN");
+        bg_colors.add("MAGENTA");
+        bg_colors.add("RED");
+        emoji_text.add("ヾ(≧▽≦*)o");
+        emoji_text.add("(●'◡'●))");
+        emoji_text.add("q(≧▽≦q)");
+        emoji_text.add("(≧∇≦)ﾉ)");
+        emoji_text.add("ヾ(^▽^*)))");
+        emoji_text.add("♪(´▽｀)");
+    }
+
+
+
+
+
+    public void init_main() {
+        //
+        FrameLayout background = (FrameLayout) findViewById(R.id.background);
+        TextView text = (TextView) findViewById(R.id.textView);
+
+        Random random = new Random();
+        int index = random.nextInt(bg_colors.size());
+        int index2 = random.nextInt(emoji_text.size());
+
+        text.setTextSize(Setting.emojitextsize);
+
+        if (Setting.isallowbgcolorchange) {
+            background.setBackgroundColor(Color.parseColor(bg_colors.get(index)));
+        } ;
+        if (Setting.isallowemojitextchange) {
+        }else{
+            if(Setting.iscustomemojitext) {
+                text.setText(Setting.customemojitext);
+            }else {
+                text.setText(emoji_text.get(index2));
+            }
+        }
+    }
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         TextView text = (TextView) findViewById(R.id.textView);
         ImageView image = (ImageView) findViewById(R.id.imageView2);
         text.setTextSize(Setting.emojitextsize);
+        init_main();
 
         image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,38 +93,7 @@ public class MainActivity extends AppCompatActivity {
         background.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<String> colors;
-                colors = new ArrayList<String>();
-                colors.add("BLACK");
-                colors.add("BLUE");
-                colors.add("CYAN");
-                colors.add("GRAY");
-                colors.add("GREEN");
-                colors.add("MAGENTA");
-                colors.add("RED");
-
-                ArrayList<String> emojitext;
-                emojitext = new ArrayList<String>();
-                emojitext.add("ヾ(≧▽≦*)o");
-                emojitext.add("(●'◡'●))");
-                emojitext.add("q(≧▽≦q)");
-                emojitext.add("(≧∇≦)ﾉ)");
-                emojitext.add("ヾ(^▽^*)))");
-                emojitext.add("♪(´▽｀)");
-
-
-                Random random = new Random();
-                int index = random.nextInt(colors.size());
-                int index2 = random.nextInt(emojitext.size());
-
-                text.setTextSize(Setting.emojitextsize);
-
-                if (Setting.isallowbgcolorchange) {
-                    background.setBackgroundColor(Color.parseColor(colors.get(index)));
-                } ;
-                if (Setting.isallowemojitextchange) {
-                    text.setText(emojitext.get(index2));
-                }
+                init_main();
             }
 
         });
@@ -90,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
         decorView.setSystemUiVisibility(uiOptions);
+        init_main();
     }
 
 }

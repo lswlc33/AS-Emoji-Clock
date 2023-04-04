@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
@@ -20,6 +22,8 @@ public class Setting extends AppCompatActivity {
     public static boolean iscustombgcolor = false;
     public static boolean iscustomemojitext = false;
     public static int emojitextsize = 80;
+
+    public static String customemojitext = "";
 
     public void init_setting(boolean a,boolean b, boolean c, boolean d){
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switch1 = (Switch) findViewById(R.id.switch1);
@@ -57,6 +61,7 @@ public class Setting extends AppCompatActivity {
         switch2.setChecked(c);
         switch3.setChecked(b);
         switch4.setChecked(d);
+        editText2.setText(customemojitext);
     }
 
 
@@ -75,7 +80,22 @@ public class Setting extends AppCompatActivity {
         EditText editText2 = (EditText) findViewById(R.id.editTextTextPersonName2);
         SeekBar seekBar1 = (SeekBar) findViewById(R.id.seekBar);
 
+        editText2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                customemojitext = String.valueOf(editText2.getText());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
