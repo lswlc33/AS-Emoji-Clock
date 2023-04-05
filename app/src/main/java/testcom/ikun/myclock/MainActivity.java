@@ -22,17 +22,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
-    static ArrayList<String> bg_colors = new ArrayList<String>();
     static ArrayList<String> emoji_text = new ArrayList<String>();
+
     static {
         // 预设颜色和表情
-        bg_colors.add("BLACK");
-        bg_colors.add("BLUE");
-        bg_colors.add("CYAN");
-        bg_colors.add("GRAY");
-        bg_colors.add("GREEN");
-        bg_colors.add("MAGENTA");
-        bg_colors.add("RED");
         emoji_text.add("ヾ(≧▽≦*)o");
         emoji_text.add("(●'◡'●))");
         emoji_text.add("q(≧▽≦q)");
@@ -42,28 +35,59 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public static boolean is_dark_color(String color) {
+        // Convert the hex color string to RGB values
+        int red = Integer.parseInt(color.substring(0, 2), 16);
+        int green = Integer.parseInt(color.substring(2, 4), 16);
+        int blue = Integer.parseInt(color.substring(4, 6), 16);
 
+        // Calculate the brightness using the formula (0.2126*R + 0.7152*G + 0.0722*B)
+        double brightness = 0.2126 * red + 0.7152 * green + 0.0722 * blue;
 
+        // If the brightness is greater than or equal to 128, classify the color as dark. Otherwise, classify it as light.
+        if (brightness >= 128) {
+            return true;
+        } else {
+            return false;
+        }
 
+    }
+
+    public static void auto_color(){
+        Random rand = new Random();
+        int num = rand.nextInt(0xffffff); // 生成一个24位二进制数
+        Setting.custom_bg_color = String.format("%06x", num);
+    }
     public void init_main() {
         // 设置背景颜色和文字
         FrameLayout background = (FrameLayout) findViewById(R.id.background);
         TextView text = (TextView) findViewById(R.id.textView);
 
         Random random = new Random();
-        int index = random.nextInt(bg_colors.size());
         int index2 = random.nextInt(emoji_text.size());
 
         text.setTextSize(Setting.emojitextsize);
 
         if (Setting.isallowbgcolorchange) {
-            background.setBackgroundColor(Color.parseColor(bg_colors.get(index)));
+            auto_color();
+            background.setBackgroundColor(Color.parseColor("#" + Setting.custom_bg_color));
+            if(is_dark_color(Setting.custom_bg_color)){
+                text.setTextColor(Color.parseColor("black"));
+            }else{
+                text.setTextColor(Color.parseColor("white"));
+            }
         }else {
             if(Setting.iscustombgcolor){
-                background.setBackgroundColor(Color.parseColor(Setting.custom_bg_color));
-            }else {
+                background.setBackgroundColor(Color.parseColor("#" + Setting.custom_bg_color));
+                if(is_dark_color(Setting.custom_bg_color)){
+                    text.setTextColor(Color.parseColor("black"));
+                }else{
+                    text.setTextColor(Color.parseColor("white"));
+                }
             }
         }
+
+
 
         if (Setting.isallowemojitextchange) {
             text.setText(emoji_text.get(index2));
@@ -72,6 +96,10 @@ public class MainActivity extends AppCompatActivity {
                 text.setText(Setting.customemojitext);
             }
         }
+
+
+
+
     }
 
 
@@ -88,6 +116,23 @@ public class MainActivity extends AppCompatActivity {
         ImageView image = (ImageView) findViewById(R.id.imageView2);
         text.setTextSize(Setting.emojitextsize);
         init_main();
+
+        image.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                image.setVisibility(View.INVISIBLE);
+                return true;
+            }
+        });
+
+        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frame1);
+        frameLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                image.setVisibility(View.VISIBLE);
+                return false;
+            }
+        });
 
         image.setOnClickListener(new View.OnClickListener() {
             @Override

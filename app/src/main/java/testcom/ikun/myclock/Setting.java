@@ -29,7 +29,7 @@ public class Setting extends AppCompatActivity {
 
     public static String customemojitext = "";
 
-    public static String custom_bg_color = "#000000";
+    public static String custom_bg_color = "000000";
     public void init_setting(boolean a,boolean b, boolean c, boolean d){
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switch1 = (Switch) findViewById(R.id.switch1);
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switch2 = (Switch) findViewById(R.id.switch2);
@@ -87,6 +87,7 @@ public class Setting extends AppCompatActivity {
         EditText editText2 = (EditText) findViewById(R.id.editTextTextPersonName2);
         SeekBar seekBar1 = (SeekBar) findViewById(R.id.seekBar);
 
+
         editText1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -101,7 +102,7 @@ public class Setting extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 if(iscustombgcolor) {
-                    Pattern pattern = Pattern.compile("^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{8})$");
+                    Pattern pattern = Pattern.compile("^([a-fA-F0-9]{6}|[a-fA-F0-9]{8})$");
                     Matcher matcher = pattern.matcher(editText1.getText());
                     if (matcher.matches()) {
                         switch2.setText("自定义背景颜色     😋️️输入的颜色符合规范！");
