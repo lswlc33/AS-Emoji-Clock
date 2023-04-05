@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onLongClick(View view) {
                 image.setVisibility(View.VISIBLE);
-                return false;
+                return true;
             }
         });
 
