@@ -30,11 +30,15 @@ public class Setting extends AppCompatActivity {
     public static String customemojitext = "";
 
     public static String custom_bg_color = "000000";
-    public void init_setting(boolean a,boolean b, boolean c, boolean d){
+
+    public static boolean is_flash_mode = false;
+
+    public void init_setting(boolean a, boolean b, boolean c, boolean d){
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switch1 = (Switch) findViewById(R.id.switch1);
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switch2 = (Switch) findViewById(R.id.switch2);
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switch3 = (Switch) findViewById(R.id.switch3);
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switch4 = (Switch) findViewById(R.id.switch4);
+        @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switch5 = (Switch) findViewById(R.id.switch5);
         EditText editText1 = (EditText) findViewById(R.id.editTextTextPersonName);
         EditText editText2 = (EditText) findViewById(R.id.editTextTextPersonName2);
         SeekBar seekBar1 = (SeekBar) findViewById(R.id.seekBar);
@@ -66,6 +70,7 @@ public class Setting extends AppCompatActivity {
         switch2.setChecked(c);
         switch3.setChecked(b);
         switch4.setChecked(d);
+        switch5.setChecked(is_flash_mode);
         editText1.setText(custom_bg_color);
         editText2.setText(customemojitext);
 
@@ -83,11 +88,28 @@ public class Setting extends AppCompatActivity {
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switch2 = (Switch) findViewById(R.id.switch2);
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switch3 = (Switch) findViewById(R.id.switch3);
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switch4 = (Switch) findViewById(R.id.switch4);
+        @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switch5 = (Switch) findViewById(R.id.switch5);
         EditText editText1 = (EditText) findViewById(R.id.editTextTextPersonName);
         EditText editText2 = (EditText) findViewById(R.id.editTextTextPersonName2);
         SeekBar seekBar1 = (SeekBar) findViewById(R.id.seekBar);
 
+        switch5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
 
+                    is_flash_mode = false;
+                    switch1.setVisibility(View.GONE);
+                    switch2.setVisibility(View.GONE);
+                    editText1.setVisibility(View.GONE);
+                } else {
+                    is_flash_mode = true;
+                    switch1.setVisibility(View.VISIBLE);
+                    switch2.setVisibility(View.VISIBLE);
+                    editText1.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         editText1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
