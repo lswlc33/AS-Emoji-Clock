@@ -96,17 +96,17 @@ public class Setting extends AppCompatActivity {
         switch5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-
+                if (is_flash_mode) {
                     is_flash_mode = false;
-                    switch1.setVisibility(View.GONE);
-                    switch2.setVisibility(View.GONE);
-                    editText1.setVisibility(View.GONE);
-                } else {
-                    is_flash_mode = true;
                     switch1.setVisibility(View.VISIBLE);
                     switch2.setVisibility(View.VISIBLE);
                     editText1.setVisibility(View.VISIBLE);
+
+                } else {
+                    is_flash_mode = true;
+                    switch1.setVisibility(View.GONE);
+                    switch2.setVisibility(View.GONE);
+                    editText1.setVisibility(View.GONE);
                 }
             }
         });
