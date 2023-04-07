@@ -1,4 +1,4 @@
-package testcom.ikun.myclock;
+package testcom.ikun.emojim;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,14 +10,12 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Switch;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 public class Setting extends AppCompatActivity {
 

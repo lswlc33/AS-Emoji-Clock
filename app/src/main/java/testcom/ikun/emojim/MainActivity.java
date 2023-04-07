@@ -1,28 +1,20 @@
-package testcom.ikun.myclock;
+package testcom.ikun.emojim;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 public class MainActivity extends AppCompatActivity {
     static ArrayList<String> emoji_text = new ArrayList<String>();
@@ -69,17 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
         Random random = new Random();
         int index2 = random.nextInt(emoji_text.size());
-
-
-
-
-
-
-
-
-
-
-
 
 
 

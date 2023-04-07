@@ -7,7 +7,7 @@ plugins {
 
 
 android {
-    namespace 'testcom.ikun.myclock'
+    namespace 'testcom.ikun.emojim'
     compileSdk 33
     splits {
         abi {
@@ -17,7 +17,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "testcom.ikun.myclock"
+        applicationId "testcom.ikun.emojim"
         minSdk 24
         targetSdk 33
         versionCode 1

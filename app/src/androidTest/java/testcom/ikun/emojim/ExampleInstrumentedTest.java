@@ -1,4 +1,4 @@
-package testcom.ikun.myclock;
+package testcom.ikun.emojim;
 
 import android.content.Context;
 
