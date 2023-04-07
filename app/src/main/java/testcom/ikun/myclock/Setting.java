@@ -33,7 +33,7 @@ public class Setting extends AppCompatActivity {
 
     public static boolean is_flash_mode = false;
 
-    public void init_setting(boolean a, boolean b, boolean c, boolean d){
+    public void init_setting(){
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switch1 = (Switch) findViewById(R.id.switch1);
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switch2 = (Switch) findViewById(R.id.switch2);
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switch3 = (Switch) findViewById(R.id.switch3);
@@ -43,33 +43,34 @@ public class Setting extends AppCompatActivity {
         EditText editText2 = (EditText) findViewById(R.id.editTextTextPersonName2);
         SeekBar seekBar1 = (SeekBar) findViewById(R.id.seekBar);
         seekBar1.setProgress(emojitextsize);
-        if(a){
+        if(isallowbgcolorchange){
             switch2.setEnabled(false);
             editText1.setEnabled(false);
         }else{
             switch2.setEnabled(true);
-            if(c){
+            if(iscustombgcolor){
                 editText1.setEnabled(true);
             }else{
                 editText1.setEnabled(false);
             }
         }
 
-        if(b){
+        if(isallowemojitextchange){
             switch4.setEnabled(false);
             editText2.setEnabled(false);
         }else{
             switch4.setEnabled(true);
-            if(d){
+            if(iscustomemojitext){
                 editText2.setEnabled(true);
             }else{
                 editText2.setEnabled(false);
             }
         }
-        switch1.setChecked(a);
-        switch2.setChecked(c);
-        switch3.setChecked(b);
-        switch4.setChecked(d);
+        switch5.setChecked(is_flash_mode);
+        switch1.setChecked(isallowbgcolorchange);
+        switch2.setChecked(iscustombgcolor);
+        switch3.setChecked(isallowemojitextchange);
+        switch4.setChecked(iscustomemojitext);
         switch5.setChecked(is_flash_mode);
         editText1.setText(custom_bg_color);
         editText2.setText(customemojitext);
@@ -108,6 +109,7 @@ public class Setting extends AppCompatActivity {
                     switch2.setVisibility(View.GONE);
                     editText1.setVisibility(View.GONE);
                 }
+                init_setting();
             }
         });
         editText1.addTextChangedListener(new TextWatcher() {
@@ -174,7 +176,7 @@ public class Setting extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 isallowbgcolorchange = b;
-                init_setting(isallowbgcolorchange, isallowemojitextchange, iscustombgcolor, iscustomemojitext);
+                init_setting();
             }
         });
 
@@ -182,15 +184,20 @@ public class Setting extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 iscustombgcolor = b;
-                init_setting(isallowbgcolorchange, isallowemojitextchange, iscustombgcolor, iscustomemojitext);
+                init_setting();
             }
         });
 
         switch3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                isallowemojitextchange = b;
-                init_setting(isallowbgcolorchange, isallowemojitextchange, iscustombgcolor, iscustomemojitext);
+                if(isallowemojitextchange){
+                    isallowemojitextchange = false;
+                }else{
+                    isallowemojitextchange = true;
+                }
+                // isallowemojitextchange = b;
+                init_setting();
             }
         });
 
@@ -198,12 +205,12 @@ public class Setting extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 iscustomemojitext = b;
-                init_setting(isallowbgcolorchange, isallowemojitextchange, iscustombgcolor, iscustomemojitext);
+                init_setting();
             }
         });
 
 
-        init_setting(isallowbgcolorchange, isallowemojitextchange, iscustombgcolor, iscustomemojitext);
+        init_setting();
 
 
 
@@ -213,6 +220,6 @@ public class Setting extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        init_setting();
     }
 }

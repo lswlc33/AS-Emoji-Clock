@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         emoji_text.add("ヾ(^▽^*)))");
         emoji_text.add("♪(´▽｀)");
     }
+
 
 
     public static boolean is_dark_color(String color) {
@@ -66,27 +70,44 @@ public class MainActivity extends AppCompatActivity {
         Random random = new Random();
         int index2 = random.nextInt(emoji_text.size());
 
-        text.setTextSize(Setting.emojitextsize);
 
-        if (Setting.isallowbgcolorchange) {
-            auto_color();
-            background.setBackgroundColor(Color.parseColor("#" + Setting.custom_bg_color));
-            if(is_dark_color(Setting.custom_bg_color)){
-                text.setTextColor(Color.parseColor("black"));
-            }else{
-                text.setTextColor(Color.parseColor("white"));
-            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        text.setTextSize(Setting.emojitextsize);
+        if(Setting.is_flash_mode){
         }else {
-            if(Setting.iscustombgcolor){
+            if (Setting.isallowbgcolorchange) {
+                auto_color();
                 background.setBackgroundColor(Color.parseColor("#" + Setting.custom_bg_color));
-                if(is_dark_color(Setting.custom_bg_color)){
+                if (is_dark_color(Setting.custom_bg_color)) {
                     text.setTextColor(Color.parseColor("black"));
-                }else{
+                } else {
                     text.setTextColor(Color.parseColor("white"));
+                }
+            } else {
+                if (Setting.iscustombgcolor) {
+                    background.setBackgroundColor(Color.parseColor("#" + Setting.custom_bg_color));
+                    if (is_dark_color(Setting.custom_bg_color)) {
+                        text.setTextColor(Color.parseColor("black"));
+                    } else {
+                        text.setTextColor(Color.parseColor("white"));
+                    }
                 }
             }
         }
-
 
 
         if (Setting.isallowemojitextchange) {
@@ -117,6 +138,32 @@ public class MainActivity extends AppCompatActivity {
         text.setTextSize(Setting.emojitextsize);
         init_main();
 
+
+        Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                if(Setting.is_flash_mode){
+                    auto_color();
+                    background.setBackgroundColor(Color.parseColor("#" + Setting.custom_bg_color));
+                }
+                // 继续执行下一个5秒切换事件
+                handler.postDelayed(this, 100);
+            }
+        };
+
+
+
+
+
+
+
+
+
+
+
+
+        handler.postDelayed(runnable, 1000);
         image.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -137,7 +184,6 @@ public class MainActivity extends AppCompatActivity {
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(MainActivity.this, Setting.class);
                 startActivity(intent);
 
